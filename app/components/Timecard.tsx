@@ -8,7 +8,7 @@ import { Timecard } from '../types/types';
 
 
 
-const App =  () => {
+const Timecard =  () => {
 
     const [users, setUsers] = useState([]);
     const [timecards, setTimecards] = useState([])
@@ -94,4 +94,4 @@ const App =  () => {
   )
 }
 
-export default App
+export default Timecard

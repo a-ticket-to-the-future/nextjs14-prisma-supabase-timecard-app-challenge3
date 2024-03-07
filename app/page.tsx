@@ -1,8 +1,8 @@
 // "use client"
 
-import Image from "next/image";
-import App from "./components/App";
+// import Image from "next/image";
 import getCurrentUser from "./actions/getCurrentUser";
+import Timecard from "./components/Timecard";
 
 
 
@@ -16,7 +16,7 @@ export default async function Home() {
 
         {currentUser ? <div>
                           <div className=" text-center">認証中</div>
-                                <App />
+                                <Timecard />
                           </div> 
                           : <div>未承認</div>}
       
