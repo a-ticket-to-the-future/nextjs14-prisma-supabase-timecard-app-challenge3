@@ -1,5 +1,5 @@
 export interface User {
-    id: number,
+    id: String,
     userName: String,
     email: String, 
     password: String,
@@ -9,12 +9,30 @@ export interface User {
 
 
 export interface Timecard {
-    id: number,
+    id: String,
     userId: String,
     startedAt: Date,
     endedAt: Date,
     createdAt: Date,
     updatedAt: Date,
+}
+
+export interface Account {
+    id: String,
+    userId: String,
+    type: String,
+    provider: String,
+    providerAccountId: String,
+    refresh_token: String,
+    access_token:  String,
+    expires_at: any,
+    token_type: String,
+    scope: String,
+    id_token: String,
+    session_state: String,
+    
+
+
 }
 
 
