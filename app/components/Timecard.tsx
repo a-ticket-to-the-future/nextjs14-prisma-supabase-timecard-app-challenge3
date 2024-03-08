@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import prisma from '../lib/prismaClient';
 import { User } from '../types/types';
 import { Timecard } from '../types/types';
+import axios from 'axios';
 
 
 
@@ -32,21 +33,33 @@ const Timecard =  () => {
 
     useEffect( () => {
         const fetchTimecards = async () => {
-            const response =  fetch("http://localhost:3000/api/timecard",{
+            const response = await fetch("http://localhost:3000/api/timecard",{
                 cache:'no-store',
             }) 
             
-            const timecardData:Timecard = await (await response).json();
+            const timecardData:Timecard = await response.json();
             return timecardData;
         }
         fetchTimecards()
     },[])
 
-    const timecardStart = () => {
+    const handleTimecardStart = async () => {
         setWorkingState(true)
+
+        try {
+
+            const startedResponse = await axios.patch('http://localhost:3000/api/timecard/start')
+    
+            const startedTimecardData = await startedResponse.data;
+            
+            console.log(startedTimecardData);
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
-    const timeCardEnd = () => {
+    const timeCardEnd = async () => {
         setWorkingState(false)
     }
 
@@ -57,7 +70,10 @@ const Timecard =  () => {
         </h1>
         <div className=' flex flex-col mt-[60px] gap-5'>
             <div className=' bg-sky-400 w-[800px] h-[60px] flex gap-20 justify-center '>
-                <div className='  border-2 border-slate-50 rounded-lg bg-gray-300 my-1 px-5 pt-3 text-center hover:scale-105 active:scale-95 cursor-pointer' onClick={timecardStart} >開始</div>
+                <form>
+
+                <button className='  border-2 border-slate-50 rounded-lg bg-gray-300 my-1 px-5 pt-3 text-center hover:scale-105 active:scale-95 cursor-pointer' onSubmit={handleTimecardStart} >開始</button>
+                </form>
                 <div className='  border-2 border-slate-50 rounded-lg my-1 px-5 pt-3 bg-red-500 hover:scale-105 active:scale-95 cursor-pointer' onClick={timeCardEnd} >停止</div>
 
                 { workingState ? (
