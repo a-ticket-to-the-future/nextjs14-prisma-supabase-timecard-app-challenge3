@@ -15,7 +15,7 @@ datasource db {
 
 model User {
   id                String     @id @default(uuid())
-  name          String?  
+  name              String?  
   email             String  @unique
   emailVerified     DateTime?
   image             String?
@@ -43,7 +43,7 @@ model Timecard {
 
 model Account {
   id                  String  @id @default(uuid())
-  userId              String
+  userId              String?
   type                String
   provider            String
   providerAccountId   String
@@ -54,7 +54,7 @@ model Account {
   scope               String?
   id_token            String?
   session_state       String?
-  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }

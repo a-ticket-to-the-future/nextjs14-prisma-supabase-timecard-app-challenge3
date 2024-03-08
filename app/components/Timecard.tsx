@@ -5,6 +5,7 @@ import prisma from '../lib/prismaClient';
 import { User } from '../types/types';
 import { Timecard } from '../types/types';
 import axios from 'axios';
+import getCurrentUser from '../actions/getCurrentUser';
 
 
 
@@ -47,8 +48,9 @@ const Timecard =  () => {
         setWorkingState(true)
 
         try {
-
-            const startedResponse = await axios.patch('http://localhost:3000/api/timecard/start')
+            const currentUser = await getCurrentUser()
+            const userId = currentUser?.id
+            const startedResponse = await axios.put('http://localhost:3000/api/timecard/start',{userId})
     
             const startedTimecardData = await startedResponse.data;
             
