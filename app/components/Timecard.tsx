@@ -47,17 +47,28 @@ const Timecard =  () => {
     const handleTimecardStart = async () => {
         setWorkingState(true)
 
-        try {
-            const currentUser = await getCurrentUser()
-            const userId = currentUser?.id
-            const startedResponse = await axios.put('http://localhost:3000/api/timecard/start',{userId})
-    
-            const startedTimecardData = await startedResponse.data;
+        try{
+
+            const currentUser = await getCurrentUser();
+            if (currentUser){
+                const response = await axios.post('/api/timecard/start',{currentUser});
+                console.log(response.data)
+            }
             
-            console.log(startedTimecardData);
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
+        // try {
+        //     const currentUser = await getCurrentUser()
+        //     const userId = currentUser?.id
+        //     const startedResponse = await axios.put('http://localhost:3000/api/timecard/start',{userId})
+    
+        //     const startedTimecardData = await startedResponse.data;
+            
+        //     console.log(startedTimecardData);
+        // } catch (error) {
+        //     console.log(error);
+        // }
 
     }
 
@@ -72,10 +83,10 @@ const Timecard =  () => {
         </h1>
         <div className=' flex flex-col mt-[60px] gap-5'>
             <div className=' bg-sky-400 w-[800px] h-[60px] flex gap-20 justify-center '>
-                <form>
+                <button className='  border-2 border-slate-50 rounded-lg bg-gray-300 my-1 px-5 pt-3 pb-3 text-center hover:scale-105 active:scale-95 cursor-pointer' onClick={handleTimecardStart} >開始</button>
+                {/* <form>
 
-                <button className='  border-2 border-slate-50 rounded-lg bg-gray-300 my-1 px-5 pt-3 text-center hover:scale-105 active:scale-95 cursor-pointer' onSubmit={handleTimecardStart} >開始</button>
-                </form>
+                </form> */}
                 <div className='  border-2 border-slate-50 rounded-lg my-1 px-5 pt-3 bg-red-500 hover:scale-105 active:scale-95 cursor-pointer' onClick={timeCardEnd} >停止</div>
 
                 { workingState ? (
